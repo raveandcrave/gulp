@@ -1,7 +1,9 @@
+import { filePaths } from "../config/path.js";
+
 const server = () => {
   app.plugins.browserSync.init({
     server: {
-      baseDir: app.path.build.html,
+      baseDir: filePaths.build.html,
     },
     logLevel: "info",
     cors: true,

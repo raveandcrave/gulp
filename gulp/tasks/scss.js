@@ -7,6 +7,8 @@ import webpcss from "gulp-webpcss"; //вывод webp изображений
 import autoPrefixer from "gulp-autoprefixer"; //вендорные префиксы
 import groupCssMediaQueries from "gulp-group-css-media-queries"; //группировка медиа запросов
 
+import { filePaths } from "../config/path.js";
+
 const sass = gulpSass(dartSass);
 
 const webpcssConfig = {
@@ -22,7 +24,7 @@ const autoPrefixerConfig = {
 
 export const scss = () => {
   return app.gulp
-    .src(app.path.src.scss, { sourcemaps: true })
+    .src(filePaths.src.scss, { sourcemaps: true })
     .pipe(
       app.plugins.plumber(
         app.plugins.notify.onError({
@@ -40,13 +42,13 @@ export const scss = () => {
     .pipe(groupCssMediaQueries())
     .pipe(webpcss(webpcssConfig))
     .pipe(autoPrefixer(autoPrefixerConfig))
-    .pipe(app.gulp.dest(app.path.build.css))
+    .pipe(app.gulp.dest(filePaths.build.css))
     .pipe(cleanCss())
     .pipe(
       rename({
         extname: ".min.css",
       })
     )
-    .pipe(app.gulp.dest(app.path.build.css))
+    .pipe(app.gulp.dest(filePaths.build.css))
     .pipe(app.plugins.browserSync.stream());
 };
